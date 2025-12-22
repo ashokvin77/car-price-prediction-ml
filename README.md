@@ -1,4 +1,10 @@
-# Used Car Price Prediction
+# 🚗 Used Car Price Prediction API
+
+**Live Demo:** [http://18.223.131.80:8000/docs](http://18.223.131.80:8000/docs)
+
+An end-to-end machine learning project: from model training to cloud deployment.
+
+---
 
 ## Overview
 
@@ -11,7 +17,7 @@ This project focuses on developing an app for Rusty Bargain, a used car sales se
 - Perform exploratory data analysis and data preprocessing.
 - Train and evaluate multiple models: Linear Regression (sanity check), Random Forest, LightGBM, CatBoost, and XGBoost, with hyperparameter tuning for tree-based models.
 - Evaluate models based on prediction quality (RMSE), prediction speed, and training time.
-Provide recommendations for Rusty Bargain's car valuation app.
+- Provide recommendations for Rusty Bargain's car valuation app.
 
 ---
 
@@ -65,8 +71,8 @@ The dataset `car_data.csv` includes the following features:
 |----------------|--------------|-------------------|----------------------|
 | LinearRegression | 2657         | 4.58              | 0.20                 |
 | RandomForest     | 1959         | 188.32            | 0.64                 |
-| LightGBM         | 1675         | 0.65              | 0.16                 |
-| CatBoost         | 1781         | 7.86              | 0.03                 |
+| LightGBM         | **1675**     | **0.65**          | 0.16                 |
+| CatBoost         | 1781         | 7.86              | **0.03**             |
 | XGBoost          | 1727         | 2.55              | 0.17                 |
 
 ---
@@ -78,7 +84,61 @@ The dataset `car_data.csv` includes the following features:
 - **LightGBM** emerged as the **optimal choice** with the **lowest RMSE (1675 euros)** and **fastest training time** of just **0.65 seconds**.
 - **CatBoost** demonstrated excellent performance (**RMSE: 1781**) and had the **fastest prediction time** of **0.03 seconds**.
 - **XGBoost** provided strong results (**RMSE: 1727**) with a **balanced training time** of **2.55 seconds**, making it a competitive alternative.
-- **Recommendation**: LightGBM is recommended for Rusty Bargain’s app due to its superior balance of prediction quality, training speed, and prediction speed.
+- **Recommendation**: LightGBM is recommended for Rusty Bargain's app due to its superior balance of prediction quality, training speed, and prediction speed.
+
+---
+
+## Deployment
+
+The best model (LightGBM) is deployed as a REST API.
+
+**Live URL:** [http://18.223.131.80:8000/docs](http://18.223.131.80:8000/docs)
+
+### Tech Stack
+
+| Category | Tools |
+|----------|-------|
+| API | FastAPI, Pydantic |
+| Containerization | Docker |
+| Cloud | AWS EC2 |
+
+### API Usage
+
+**Endpoint:** `POST /predict`
+
+**Example:**
+```bash
+curl -X POST "http://18.223.131.80:8000/predict?VehicleType=sedan&Gearbox=manual&Power=150&Model=golf&Mileage=100000&FuelType=petrol&Brand=volkswagen&NotRepaired=no&Age=5"
+```
+
+**Response:**
+```json
+{
+  "predicted_price_euros": 12410.39
+}
+```
+
+### Run Locally
+```bash
+cd api
+docker build -t car-price-api .
+docker run -p 8000:8000 car-price-api
+# Open http://localhost:8000/docs
+```
+
+---
+
+## Project Structure
+```
+├── car.ipynb                      # Model training notebook
+├── car_data.csv                   # Dataset
+├── README.md
+├── api/
+│   ├── main.py                    # FastAPI application
+│   ├── Dockerfile                 # Container configuration
+│   ├── requirements.txt           # API dependencies
+│   └── lightgbm_car_price.joblib  # Trained model
+```
 
 ---
 
@@ -86,13 +146,13 @@ The dataset `car_data.csv` includes the following features:
 
 - Python 3.12.10
 - Pandas 2.2.3
-- NumPy  2.2.5
+- NumPy 2.2.5
 - Scikit-learn 1.6.1
-- LightGBM  4.6.0 
-- CatBoost  1.2.8
-- XGBoost   3.0.0
+- LightGBM 4.6.0
+- CatBoost 1.2.8
+- XGBoost 3.0.0
+- FastAPI
+- Docker
+- AWS EC2
 
 ---
-
-
-
