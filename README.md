@@ -1,158 +1,144 @@
-# 🚗 Used Car Price Prediction API
+# 🏎️ Used Car Price Prediction API
 
-**Live Demo:** [http://18.223.131.80:8000/docs](http://18.223.131.80:8000/docs)
+![Project Banner](https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 
-An end-to-end machine learning project: from model training to cloud deployment.
+<div align="center">
 
----
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Docker](https://img.shields.io/badge/Docker-Container-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
+[![AWS](https://img.shields.io/badge/AWS-EC2-232F3E?style=flat&logo=amazon-aws&logoColor=white)](https://aws.amazon.com/)
+[![LightGBM](https://img.shields.io/badge/Model-LightGBM-FF7043?style=flat)](https://lightgbm.readthedocs.io/)
 
-## Overview
+**An end-to-end machine learning project: from model training to cloud deployment.**
 
-This project focuses on developing an app for Rusty Bargain, a used car sales service. Their main goal is to attract customers by offering features like instantly determining the market value of used cars. They aim to achieve this by building models based on historical data, including technical specifications, trim versions, and prices. This project tests different models and evaluates their performance based on RMSE, training time, and prediction speed to identify the best model for the app.
+### 🚀 [**View Live API Documentation**](http://18.223.131.80:8000/docs)
 
----
-
-## Objectives
-
-- Perform exploratory data analysis and data preprocessing.
-- Train and evaluate multiple models: Linear Regression (sanity check), Random Forest, LightGBM, CatBoost, and XGBoost, with hyperparameter tuning for tree-based models.
-- Evaluate models based on prediction quality (RMSE), prediction speed, and training time.
-- Provide recommendations for Rusty Bargain's car valuation app.
+</div>
 
 ---
 
-## Data Description
+## 📋 Overview
 
-The dataset `car_data.csv` includes the following features:
+This project delivers a scalable machine learning solution for **Rusty Bargain**, a used car sales service. The primary business objective was to develop an algorithmic tool that allows users to instantly determine the market value of their vehicle.
 
-- **DateCrawled** — Date when the listing was crawled from the website.
-- **VehicleType** — Type of the vehicle body (e.g., sedan, SUV, convertible).
-- **RegistrationYear** — Year the vehicle was registered.
-- **Gearbox** — Type of gearbox (e.g., manual, automatic).
-- **Power** — Engine power in horsepower (hp).
-- **Model** — Vehicle model name.
-- **Mileage** — Mileage of the vehicle in kilometers.
-- **RegistrationMonth** — Month the vehicle was registered.
-- **FuelType** — Type of fuel used (e.g., gasoline, diesel, electric).
-- **Brand** — Brand of the car (e.g., BMW, Audi).
-- **NotRepaired** — Indicates whether the vehicle has been repaired (`yes`, `no`, or `unknown`).
-- **DateCreated** — Date when the listing was created.
-- **NumberOfPictures** — Number of pictures uploaded for the vehicle (typically 0).
-- **PostalCode** — Postal code of the listing owner.
-- **LastSeen** — Date when the user last interacted with the listing.
-- **Price** *(Target)* — Listed price of the vehicle in Euros.
+By analyzing historical data—including technical specifications, trim versions, and pricing—I developed and deployed a model that optimizes for both **prediction accuracy (RMSE)** and **inference speed**, ensuring a seamless user experience in the final application.
 
 ---
 
-## Modeling Approach
+## 🎯 Objectives
 
-- **Models Trained**:
-  - **Linear Regression**:  
-    Used as a **sanity check**, no hyperparameter tuning.
-  - **Random Forest**:  
-    Tuned key hyperparameters (e.g., `n_estimators`, `max_depth`).
-  - **LightGBM**:  
-    Tuned parameters such as `learning_rate` and `n_estimators`.
-  - **CatBoost**:  
-    Tuned parameters including `depth` and `iterations`.
-  - **XGBoost**:  
-    Tuned a few default parameters for quick comparison.
-
-- **Evaluation Metrics**:
-  - **RMSE (Euros)**: To evaluate prediction quality.
-  - **Training Time (s)**: Time to train the model.
-  - **Prediction Time (s)**: Time to make predictions.
+* **Data Engineering:** Perform robust exploratory data analysis (EDA), cleaning, and preprocessing of vehicle specifications.
+* **Model Development:** Train and rigorously evaluate multiple regression algorithms (Linear, Tree-based, and Gradient Boosting).
+* **Performance Optimization:** Tune hyperparameters to minimize Root Mean Squared Error (RMSE) while monitoring training and prediction latency.
+* **Production Deployment:** Containerize the best-performing model (LightGBM) using Docker and deploy it as a REST API on AWS EC2.
 
 ---
 
-## Model Performance Summary
+## 💾 Data Description
 
-| Model           | RMSE (Euros) | Training Time (s) | Prediction Time (s) |
-|----------------|--------------|-------------------|----------------------|
-| LinearRegression | 2657         | 4.58              | 0.20                 |
-| RandomForest     | 1959         | 188.32            | 0.64                 |
-| LightGBM         | **1675**     | **0.65**          | 0.16                 |
-| CatBoost         | 1781         | 7.86              | **0.03**             |
-| XGBoost          | 1727         | 2.55              | 0.17                 |
+The dataset (`car_data.csv`) comprises historical inventory data with the following key features:
 
----
-
-## Key Insights
-
-- **Linear Regression** served as an effective **sanity check** with an RMSE of **2657 euros**, confirming that more complex models provided substantial improvements.
-- **Random Forest** improved performance significantly (**RMSE: 1959**) but had the **slowest training time** at **188.32 seconds**.
-- **LightGBM** emerged as the **optimal choice** with the **lowest RMSE (1675 euros)** and **fastest training time** of just **0.65 seconds**.
-- **CatBoost** demonstrated excellent performance (**RMSE: 1781**) and had the **fastest prediction time** of **0.03 seconds**.
-- **XGBoost** provided strong results (**RMSE: 1727**) with a **balanced training time** of **2.55 seconds**, making it a competitive alternative.
-- **Recommendation**: LightGBM is recommended for Rusty Bargain's app due to its superior balance of prediction quality, training speed, and prediction speed.
+| Feature Category | Features |
+| :--- | :--- |
+| **Vehicle Specs** | `VehicleType`, `Gearbox`, `Power` (hp), `Model`, `FuelType`, `Brand`, `Mileage` |
+| **History & Condition** | `RegistrationYear`, `RegistrationMonth`, `NotRepaired`, `DateCrawled`, `LastSeen` |
+| **Meta Data** | `DateCreated`, `NumberOfPictures`, `PostalCode` |
+| **Target Variable** | **`Price`** (Value in Euros) |
 
 ---
 
-## Deployment
+## ⚙️ Modeling Approach
 
-The best model (LightGBM) is deployed as a REST API.
+To ensure the most robust solution, I implemented a comparative analysis of five distinct algorithms:
 
-**Live URL:** [http://18.223.131.80:8000/docs](http://18.223.131.80:8000/docs)
+1.  **Linear Regression:** Established a baseline for performance (Sanity Check).
+2.  **Random Forest:** Utilized for its robustness; tuned `n_estimators` and `max_depth`.
+3.  **LightGBM:** Chosen for efficiency; tuned `learning_rate` and `n_estimators`.
+4.  **CatBoost:** Implemented for handling categorical features; tuned `depth` and `iterations`.
+5.  **XGBoost:** Tested as a competitive gradient boosting alternative.
 
-### Tech Stack
+**Evaluation Metrics:**
+* 📉 **RMSE (Euros):** Accuracy of price prediction.
+* ⏱️ **Training Time:** Computational cost to train.
+* ⚡ **Prediction Time:** Latency for the end-user (critical for app integration).
 
-| Category | Tools |
-|----------|-------|
-| API | FastAPI, Pydantic |
-| Containerization | Docker |
-| Cloud | AWS EC2 |
+---
 
-### API Usage
+## 📊 Model Performance Summary
+
+After rigorous testing, the models performed as follows:
+
+| Model | RMSE (€) | Training Time (s) | Prediction Time (s) | Verdict |
+| :--- | :--- | :--- | :--- | :--- |
+| **LightGBM** | **1675** | **0.65** | **0.16** | **🏆 Champion** |
+| **XGBoost** | 1727 | 2.55 | 0.17 | Runner Up |
+| **CatBoost** | 1781 | 7.86 | **0.03** | Fastest Inference |
+| **Random Forest**| 1959 | 188.32 | 0.64 | Resource Heavy |
+| **Linear Reg.** | 2657 | 4.58 | 0.20 | Baseline |
+
+### 💡 Key Insights
+* **LightGBM** was selected as the production model. It achieved the **lowest RMSE (1675)** and the **fastest training time (0.65s)**, offering the perfect balance for an iterative development cycle.
+* **CatBoost** offered the fastest inference speed (0.03s), making it a viable backup if real-time latency becomes the sole priority.
+* **Linear Regression** confirmed the non-linearity of the data (RMSE 2657), validating the need for complex tree-based ensembles.
+
+---
+
+## ☁️ Deployment Architecture
+
+The champion model (LightGBM) is wrapped in a **FastAPI** application, containerized with **Docker**, and hosted on an **AWS EC2** instance.
+
+* **Live URL:** [http://18.223.131.80:8000/docs](http://18.223.131.80:8000/docs)
+
+### API Usage Example
 
 **Endpoint:** `POST /predict`
 
-**Example:**
 ```bash
-curl -X POST "http://18.223.131.80:8000/predict?VehicleType=sedan&Gearbox=manual&Power=150&Model=golf&Mileage=100000&FuelType=petrol&Brand=volkswagen&NotRepaired=no&Age=5"
+curl -X POST "[http://18.223.131.80:8000/predict?VehicleType=sedan&Gearbox=manual&Power=150&Model=golf&Mileage=100000&FuelType=petrol&Brand=volkswagen&NotRepaired=no&Age=5](http://18.223.131.80:8000/predict?VehicleType=sedan&Gearbox=manual&Power=150&Model=golf&Mileage=100000&FuelType=petrol&Brand=volkswagen&NotRepaired=no&Age=5)"
 ```
 
-**Response:**
+**JSON Response:**
 ```json
 {
   "predicted_price_euros": 12410.39
 }
 ```
 
-### Run Locally
+---
+
+## 🛠️ How to Run Locally
+
+If you wish to run the API on your local machine:
+
 ```bash
+# 1. Navigate to the API directory
 cd api
+
+# 2. Build the Docker image
 docker build -t car-price-api .
+
+# 3. Run the container
 docker run -p 8000:8000 car-price-api
-# Open http://localhost:8000/docs
+
+# 4. Access the Swagger UI
+# Open http://localhost:8000/docs in your browser
 ```
 
 ---
 
-## Project Structure
-```
-├── car.ipynb                      # Model training notebook
-├── car_data.csv                   # Dataset
-├── README.md
+## 📂 Project Structure
+
+```text
+├── car.ipynb                      # Jupyter Notebook for EDA, Training & Evaluation
+├── car_data.csv                   # Historical Dataset
+├── README.md                      # Project Documentation
 ├── api/
-│   ├── main.py                    # FastAPI application
-│   ├── Dockerfile                 # Container configuration
-│   ├── requirements.txt           # API dependencies
-│   └── lightgbm_car_price.joblib  # Trained model
+│   ├── main.py                    # FastAPI application entry point
+│   ├── Dockerfile                 # Docker container configuration
+│   ├── requirements.txt           # Python dependencies
+│   └── lightgbm_car_price.joblib  # Serialized Champion Model
 ```
 
 ---
 
-## Tools and Technologies
-
-- Python 3.12.10
-- Pandas 2.2.3
-- NumPy 2.2.5
-- Scikit-learn 1.6.1
-- LightGBM 4.6.0
-- CatBoost 1.2.8
-- XGBoost 3.0.0
-- FastAPI
-- Docker
-- AWS EC2
-
----
